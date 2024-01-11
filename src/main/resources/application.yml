@@ -18,3 +18,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  application:
+    name: food-delivery
+
+service:
+  jwt:
+    access-expiration: 360
+    secret-key: secret
