@@ -13,7 +13,7 @@ spring:
     show-sql: true
 
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
     properties:
       hibernate:
@@ -24,5 +24,4 @@ spring:
 
 service:
   jwt:
-    access-expiration: 360
-    secret-key: secret
+    access-expiration: 3600 * 60
