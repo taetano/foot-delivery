@@ -1,5 +1,6 @@
 package com.project.delivery.service;
 
+import com.project.delivery.dto.MyProfileResponseDto;
 import com.project.delivery.dto.SignupRequestDto;
 import com.project.delivery.entity.User;
 import com.project.delivery.repository.UserRepository;
@@ -16,6 +17,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
+    // TODO: 2024/01/12 DTO의 값이 서비스에 부합한 정보인지 확인하는 Validation 추가 필요
     public void signup(SignupRequestDto dto) {
         if (existsUsername(dto.username())) {
             throw new RuntimeException("Error occurred");
@@ -34,5 +37,18 @@ public class UserService {
 
     public boolean existsUsername(String username) {
         return userRepository.existsByUsername(username);
+    }
+
+    public MyProfileResponseDto myProfile(Long id) {
+        User dbUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("UserService.myProfile():43 -> 프로필조회"));
+
+        return new MyProfileResponseDto(
+                dbUser.getId(),
+                dbUser.getUsername(),
+                dbUser.getNickname(),
+                dbUser.getPhone(),
+                dbUser.getAddress()
+                );
     }
 }

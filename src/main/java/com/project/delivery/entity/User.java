@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -31,6 +33,12 @@ public class User {
     @Column(nullable = false)
     private String address;
 
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    private LocalDateTime deletedAt;
+
     // coupon, cart, like, order, payment
 
     @Builder
@@ -40,5 +48,6 @@ public class User {
         this.nickname = nickname;
         this.phone = phone;
         this.address = address;
+        this.createdAt = LocalDateTime.now();
     }
 }
