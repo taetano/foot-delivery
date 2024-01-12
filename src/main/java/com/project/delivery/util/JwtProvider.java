@@ -6,11 +6,13 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-@Configuration
+@Component
 public class JwtProvider {
     @Value("${spring.application.name}")
     private String issuer;
@@ -20,8 +22,10 @@ public class JwtProvider {
 
     private final SecretKey secretKey;
 
-    public JwtProvider(@Value("${service.jwt.secret-key}") String secretKey) {
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));
+//    @Value("${service.jwt.secret-key}") String secretKey
+    public JwtProvider() {
+        byte[] keys = KeyGenerators.secureRandom(256).generateKey();
+        this.secretKey = Keys.hmacShaKeyFor(keys);
     }
 
     public String createToken(String username) {
