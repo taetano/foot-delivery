@@ -2,6 +2,7 @@ package com.project.delivery.service;
 
 import com.project.delivery.dto.LoginRequestDto;
 import com.project.delivery.entity.User;
+import com.project.delivery.exception.LoginException;
 import com.project.delivery.repository.UserRepository;
 import com.project.delivery.util.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,10 @@ public class LoginService {
     // TODO: 2024/01/11 Set GlobalException AND Add Custom Exception
     public String login(LoginRequestDto dto) {
         User dbUser = userRepository.findByUsername(dto.username())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new LoginException("로그인이 실패하였습니다."));
 
         if (!passwordEncoder.matches(dto.password(), dbUser.getPassword())) {
-            throw new RuntimeException("LoginService:21 -> 에러");
+            throw new LoginException("로그인이 실패하였습니다.");
         }
 
         return jwtProvider.createToken(dto.username());
