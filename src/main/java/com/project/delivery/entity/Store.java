@@ -34,7 +34,7 @@ public class Store {
     @Column(nullable = false)
     private String phone;
 
-    @Enumerated(EnumType.STRING)
+    @Embedded
     private StoreStatus status;
 
     @ManyToOne
@@ -54,7 +54,7 @@ public class Store {
         this.closeTime = closeTime;
         this.address = address;
         this.phone = phone;
-        this.status = StoreStatus.CLOSE;
+        this.status = status;
         this.category = category;
         this.createdAt = LocalDateTime.now();
     }
