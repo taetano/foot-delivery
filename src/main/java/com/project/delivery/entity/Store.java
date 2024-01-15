@@ -47,8 +47,7 @@ public class Store {
     private LocalDateTime deletedAt;
 
     @Builder
-
-    public Store(String ownerName, String title, LocalDateTime openTime, LocalDateTime closeTime, String address, String phone, StoreStatus status, StoreCategory category, LocalDateTime createdAt) {
+    public Store(String ownerName, String title, LocalDateTime openTime, LocalDateTime closeTime, String address, String phone, StoreStatus status, StoreCategory category) {
         this.ownerName = ownerName;
         this.title = title;
         this.openTime = openTime;
@@ -57,6 +56,6 @@ public class Store {
         this.phone = phone;
         this.status = StoreStatus.CLOSE;
         this.category = category;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
     }
 }
