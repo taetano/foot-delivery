@@ -18,4 +18,8 @@ public class StoreService {
     public List<StoreDto> findAllStoreByCategoryId(Long categoryId) {
         return storeRepository.findAllByCategoryId(categoryId, Sort.by(Sort.Direction.DESC, "status"));
     }
+
+    public List<StoreDto> findAllStoreBySearch(String search) {
+        return storeRepository.findAllBySearch(search, Sort.by(Sort.Direction.DESC, "status"));
+    }
 }
